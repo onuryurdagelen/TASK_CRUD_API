@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,10 +16,14 @@ namespace TASK_CRUD_API.Controllers
     {
      
         private readonly IProductService _service;
+        private readonly AppDbContext _context;
 
-        public ProductsController(IProductService productService)
+       
+
+        public ProductsController(IProductService productService, AppDbContext context)
         {
             _service = productService;
+            _context = context;
         }
         [HttpGet]
          public async Task<List<Product>> GetAllProducts()
@@ -26,6 +31,14 @@ namespace TASK_CRUD_API.Controllers
             var products = await _service.GetAllAsync();
 
             return products;
+        }
+
+        [HttpGet("[action]")]
+        public async Task<List<Product>> GetAllProductsWithCategory()
+        {
+            var productsWithCategory = await _service.GetProductsWithCategory();
+
+            return productsWithCategory;
         }
         [HttpPost]
         public async void AddProduct([FromBody] Product product)

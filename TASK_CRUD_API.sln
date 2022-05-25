@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.32428.217
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TASK_CRUD_API", "TASK_CRUD_API\TASK_CRUD_API.csproj", "{86FC288F-B0E0-4654-9769-E8095682B737}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TASK_CRUD_API", "TASK_CRUD_API\TASK_CRUD_API.csproj", "{86FC288F-B0E0-4654-9769-E8095682B737}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TASK_CRUD_WEB", "TASK_CRUD_WEB\TASK_CRUD_WEB.csproj", "{0CD9B3DD-44AE-4CE9-906B-49A9A45EF5FF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{86FC288F-B0E0-4654-9769-E8095682B737}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{86FC288F-B0E0-4654-9769-E8095682B737}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{86FC288F-B0E0-4654-9769-E8095682B737}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0CD9B3DD-44AE-4CE9-906B-49A9A45EF5FF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0CD9B3DD-44AE-4CE9-906B-49A9A45EF5FF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0CD9B3DD-44AE-4CE9-906B-49A9A45EF5FF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0CD9B3DD-44AE-4CE9-906B-49A9A45EF5FF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -8,5 +8,6 @@ namespace TASK_CRUD_API.Services
 {
     public interface IProductService: IService<Product>
     {
+        Task<List<Product>> GetProductsWithCategory();
     }
 }

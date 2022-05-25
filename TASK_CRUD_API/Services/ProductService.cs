@@ -16,5 +16,10 @@ namespace TASK_CRUD_API.Services
         {
             _repository = productRepository;
         }
+
+        public async Task<List<Product>> GetProductsWithCategory()
+        {
+            return await _repository.GetProductsWithCategory();
+        }
     }
 }

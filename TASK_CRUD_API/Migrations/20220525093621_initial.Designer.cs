@@ -10,7 +10,7 @@ using TASK_CRUD_API;
 namespace TASK_CRUD_API.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20220524164513_initial")]
+    [Migration("20220525093621_initial")]
     partial class initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

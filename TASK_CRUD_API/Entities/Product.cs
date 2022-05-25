@@ -18,7 +18,7 @@ namespace TASK_CRUD_API.Entities
 
         [ForeignKey("CategoryId")]
 
-        [JsonIgnore]
+        //[JsonIgnore]
         public Category Category { get; set; }
 
     }
