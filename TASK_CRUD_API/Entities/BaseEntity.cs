@@ -12,6 +12,7 @@ namespace NLayer.Core.Entities
     {
         public int Id { get; set; }
 
+        [Required(ErrorMessage = "Please enter a Description")]
         [MinLength(5,ErrorMessage = "Description must be greater than 5 characters!")]
         public string Description { get; set; }
 

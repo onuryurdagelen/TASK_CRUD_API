@@ -13,7 +13,7 @@
             <th>Description</th>
             <th>Category</th>
             <th>CreatedDate</th>
-            <th></th>
+            <th>Actions</th>
         </tr>
     </thead>
     <tbody>
@@ -27,7 +27,7 @@
                 <td>@product.Category.Name</td>
                 <td>@product.CreateDate</td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { id = product.Id }, new { @class = "btn btn-warning" })
+                    @Html.ActionLink("Update", "Update", new { id = product.Id }, new { @class = "btn btn-warning" })
                     @Html.ActionLink("Delete", "Delete", new { id = product.Id }, new { @class = "btn btn-danger" })
                 </td>
             </tr>
