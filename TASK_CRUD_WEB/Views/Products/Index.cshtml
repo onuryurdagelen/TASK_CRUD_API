@@ -3,6 +3,18 @@
 }
 @model List<Product>
 
+<div class="row my-3">
+    <a class="btn btn-info" asp-action="Save">To Add A Product >></a>
+</div>
+
+@if (Model.Count < 1)
+{
+<div class="alert alert-danger" role="alert">
+    PRODUCT NOT FOUND.PLEASE ENTER A NEW PRODUCT!
+</div>
+}
+else { 
+
 <table class="table table-stripped">
     <thead>
 
@@ -29,8 +41,11 @@
                 <td>
                     @Html.ActionLink("Update", "Update", new { id = product.Id }, new { @class = "btn btn-warning" })
                     @Html.ActionLink("Delete", "Delete", new { id = product.Id }, new { @class = "btn btn-danger" })
+
+
                 </td>
             </tr>
         }
     </tbody>
 </table>
+}

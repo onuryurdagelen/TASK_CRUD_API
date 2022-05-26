@@ -12,24 +12,22 @@ using TASK_CRUD_WEB.Models;
 
 namespace TASK_CRUD_WEB.Controllers
 {
-    public class ProductsController : Controller
+    public class CategoriesController : Controller
     {
-        private readonly IProductService _productService;
         private readonly ICategoryService _categoryService;
 
         private readonly AppDbContext _context;
 
-        public ProductsController(IProductService productService, ICategoryService categoryService,AppDbContext context)
+        public CategoriesController(ICategoryService categoryService, AppDbContext context)
         {
-            _productService = productService;
             _categoryService = categoryService;
             _context = context;
         }
 
         public async Task<IActionResult> Index()
         {
-            var products = await _productService.GetProductsWithCategory();
-            return View(products);
+            var categories = await _categoryService.GetAllAsync();
+            return View(categories);
         }
 
         [HttpGet]
@@ -49,27 +47,25 @@ namespace TASK_CRUD_WEB.Controllers
 
         [HttpPost]
 
-        public async Task<IActionResult> Save(Product product)
+        public async Task<IActionResult> Save(Category category)
         {
             
-            var addedProduct = new Product() 
+            var addedCategory = new Category()
             {
                 CreateDate = DateTime.UtcNow,
-                CategoryId = product.CategoryId,
-                Description = product.Description,
-                Name = product.Name,
-                Price = product.Price
+                Description = category.Description,
+                Name = category.Name
 
             };
             if (ModelState.IsValid)
             {
-                await _productService.AddAsync(addedProduct);
+                await _categoryService.AddAsync(addedCategory);
                 return RedirectToAction(nameof(Index));
             }
 
             var categories = await _categoryService.GetAllAsync();
 
-            ViewBag.categories = new SelectList((IEnumerable)categories, "Id", "Name");
+            ViewBag.categories = new SelectList(categories, "Id", "Name");
 
             return View();
         }
@@ -78,61 +74,53 @@ namespace TASK_CRUD_WEB.Controllers
 
         public async Task<IActionResult> Update(int id)
         {
-            var product = await _productService.GetByIdAsync(id);
+            var category = await _categoryService.GetByIdAsync(id);
 
             var categories = await _categoryService.GetAllAsync();
 
-            //var createdDate = _context.Products.Where(p => p.Id == id).Select(x => x.CreateDate).FirstOrDefault();
+            ViewBag.categories = new SelectList(categories, "Id", "Name", category.Id);
 
-            //Console.WriteLine(createdDate);
-
-            //product.CreateDate = createdDate;
-
-            ViewBag.categories = new SelectList(categories, "Id", "Name",product.CategoryId);
-
-            return View(product);
+            return View(category);
         }
 
         [HttpPost]
 
-        public async Task<IActionResult> Update(Product product)
+        public async Task<IActionResult> Update(Category category)
         {
-            var createdDate = _context.Products.Where(p => p.Id == product.Id).Select(x => x.CreateDate).FirstOrDefault();
+            var createdDate = _context.Categories.Where(c => c.Id == category.Id).Select(x => x.CreateDate).FirstOrDefault();
 
             Console.WriteLine(createdDate);
-            var updatedProduct = new Product()
+            var updatedCategory = new Category()
             {
-                Id = product.Id,
-                CategoryId = product.CategoryId,
+                Id = category.Id,
                 CreateDate = createdDate,
-                Description = product.Description,
-                Name = product.Name,
-                Price = product.Price
+                Description = category.Description,
+                Name = category.Name,
 
             };
 
             if (ModelState.IsValid)
             {
-                await _productService.UpdateAsync(updatedProduct);
+                await _categoryService.UpdateAsync(updatedCategory);
                 return RedirectToAction(nameof(Index));
             }
 
             var categories = await _categoryService.GetAllAsync();
 
-            ViewBag.categories = new SelectList(categories, "Id", "Name", product.CategoryId);
+            ViewBag.categories = new SelectList(categories, "Id", "Name", category.Id);
 
-            return View(product);
+            return View(category);
         }
 
         [HttpGet]
         public async Task<IActionResult> Delete(int id)
         {
-            var selectedProduct = await  _productService.GetByIdAsync(id);
+            var selectedCategory = await _categoryService.GetByIdAsync(id);
 
-            await _productService.RemoveAsync(selectedProduct);
+            await _categoryService.RemoveAsync(selectedCategory);
             return RedirectToAction(nameof(Index));
         }
 
-       
+
     }
 }
