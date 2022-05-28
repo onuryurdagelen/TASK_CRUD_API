@@ -18,6 +18,7 @@ namespace TASK_CRUD_API.Entities
         [Required(ErrorMessage = "Please enter a Price")]
 
         [Range(typeof(decimal), "1", "79228162514264337593543950335",ErrorMessage = "Price Must be greater than 0")]
+        [Column(TypeName = "decimal(18,2)")]
         public decimal Price { get; set; }
 
         public int CategoryId { get; set; }
@@ -25,6 +26,7 @@ namespace TASK_CRUD_API.Entities
         [ForeignKey("CategoryId")]
 
         //[JsonIgnore]
+        //[NotMapped]
         public Category Category { get; set; }
 
     }

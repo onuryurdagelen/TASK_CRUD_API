@@ -38,7 +38,14 @@ namespace TASK_CRUD_API
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "TASK_CRUD_API", Version = "v1" });
             });
 
-            services.AddDbContext<AppDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("SqlServerCon")));
+            services.AddDbContext<AppDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.GetConnectionString("SqlServerCon"),
+                sqlServerOptionsAction: sqlOptions =>
+                {
+                    sqlOptions.EnableRetryOnFailure();
+                });
+            });
 
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
@@ -50,6 +57,8 @@ namespace TASK_CRUD_API
 
             services.AddScoped<ICategoryService, CategoryService>();
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+
+            
 
             services.AddCors();
         }

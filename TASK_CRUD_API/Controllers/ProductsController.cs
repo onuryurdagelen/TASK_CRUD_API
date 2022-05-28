@@ -16,14 +16,12 @@ namespace TASK_CRUD_API.Controllers
     {
      
         private readonly IProductService _service;
-        private readonly AppDbContext _context;
 
        
 
-        public ProductsController(IProductService productService, AppDbContext context)
+        public ProductsController(IProductService productService)
         {
             _service = productService;
-            _context = context;
         }
         [HttpGet]
          public async Task<List<Product>> GetAllProducts()
@@ -40,23 +38,51 @@ namespace TASK_CRUD_API.Controllers
 
             return productsWithCategory;
         }
-        [HttpPost]
-        public async void AddProduct([FromBody] Product product)
+        [HttpGet("{id}")]
+        public async Task<Product> GetSingleProductById(int id)
         {
-            await _service.AddAsync(product);
+            var singleProduct = await _service.GetByIdAsync(id);
+            return singleProduct;
         }
-        [HttpPut]
-        public async void UpdateProduct([FromBody] Product product)
+
+        [HttpPost]
+        public async Task<Product> AddProduct([FromBody] Product product)
         {
-            await _service.UpdateAsync(product);
+            var addedProduct = new Product()
+            {
+                CreateDate = DateTime.UtcNow,
+                CategoryId = product.CategoryId,
+                Description = product.Description,
+                Name = product.Name,
+                Price = product.Price
+
+            };
+            Console.WriteLine(addedProduct.Category);
+            await _service.AddAsync(addedProduct);
+            return addedProduct;
+        }
+        [HttpPut("{id}")]
+        public async Task<Product> UpdateProduct(int id,[FromBody] Product product)
+        {
+
+            var updatedProduct = await _service.GetByIdAsync(id);
+            updatedProduct.Category = product.Category;
+            updatedProduct.CategoryId = product.CategoryId;
+            updatedProduct.Description = product.Description;
+            updatedProduct.Name = product.Name;
+            updatedProduct.Price = product.Price;
+            await _service.UpdateAsync(updatedProduct);
+
+            return product;
 
         }
 
         [HttpDelete("{id}")]
-        public async void DeleteProduct(int id)
+        public async Task<Product> DeleteProduct(int id)
         {
             var removedProduct = await _service.GetByIdAsync(id);
             await _service.RemoveAsync(removedProduct);
+            return removedProduct;
         }
     }
 }
